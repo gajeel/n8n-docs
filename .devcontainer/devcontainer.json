@@ -1,1 +1,31 @@
-{\n  "name": "n8n-docs - Python Dev Container",\n  "image": "mcr.microsoft.com/devcontainers/universal:1",\n  "features": {\n    "ghcr.io/devcontainers/features/python": {\n      "version": "3.11"\n    }\n  },\n  "customizations": {\n    "vscode": {\n      "extensions": [\n        "ms-python.python",\n        "ms-python.vscode-pylance",\n        "ms-python.isort",\n        "ms-python.black-formatter",\n        "eamodio.gitlens",\n        "yzhang.markdown-all-in-one",\n        "DavidAnson.vscode-markdownlint",\n        "ms-azuretools.vscode-docker"\n      ],\n      "settings": {\n        "python.formatting.provider": "black",\n        "editor.formatOnSave": true,\n        "python.pythonPath": "/usr/local/bin/python"\n      }\n    }\n  },\n  "workspaceFolder": "/workspace",\n  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",\n  "postCreateCommand": "python -m pip install --upgrade pip setuptools wheel && if [ -f requirements.txt ]; then pip install -r requirements.txt; fi",\n  "forwardPorts": [8000, 8080],\n  "remoteUser": "vscode"\n}
+{
+  "name": "n8n-docs - Python Dev Container (Dockerfile)",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.isort",
+        "ms-python.black-formatter",
+        "eamodio.gitlens",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "python.formatting.provider": "black",
+        "editor.formatOnSave": true,
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  },
+  "workspaceFolder": "/workspace",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "postCreateCommand": "./.devcontainer/postCreate.sh",
+  "forwardPorts": [8000, 8080, 3000, 5173],
+  "remoteUser": "vscode"
+}
